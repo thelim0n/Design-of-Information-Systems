@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             id="Definitions_ID__________________________________________________________________"
+             targetNamespace="http://example.com/bpmn">
+
+  <message id="Message_ID__________________________________________________________________" name="Госпитализация и лечение пациента в стационаре (бумажный процесс)"/>
+  <collaboration id="Collaboration_ID__________________________________________________________________">
+    <participant id="Participant_ID_____________" name="Регистратура" processRef="Process_ID_____________"/>
+    <participant id="Participant_ID___________________" name="Палатная_медсестра" processRef="Process_ID___________________"/>
+    <participant id="Participant_ID_____________" name="Лечащий_врач" processRef="Process_ID_____________"/>
+    <participant id="Participant_ID___________________" name="Курьер_лаборатории" processRef="Process_ID___________________"/>
+    <participant id="Participant_ID____________________" name="Внешняя_лаборатория" processRef="Process_ID____________________"/>
+    <messageFlow id="Flow_rel-_______________________-_______________-forward_dashed" sourceRef="ID________________________" targetRef="ID________________"/>
+    <messageFlow id="Flow_rel-_________________-_______________-forward" sourceRef="ID__________________" targetRef="ID________________"/>
+    <messageFlow id="Flow_rel-_________________-____________________-forward" sourceRef="ID__________________" targetRef="ID_____________________"/>
+    <messageFlow id="Flow_rel-______________________-__________-forward" sourceRef="ID_______________________" targetRef="ID___________"/>
+    <messageFlow id="Flow_rel-_____________________-______________-forward_dashed" sourceRef="ID______________________" targetRef="ID_______________"/>
+    <messageFlow id="Flow_rel-______________________-_____________________-forward_dashed" sourceRef="ID_______________________" targetRef="ID______________________"/>
+    <messageFlow id="Flow_rel-_________________-__________________-forward" sourceRef="ID__________________" targetRef="ID___________________"/>
+    <messageFlow id="Flow_rel-_________________-_______________-forward-___" name="Нет" sourceRef="ID__________________" targetRef="ID________________"/>
+    <messageFlow id="Flow_rel-__________________-_________________-forward" sourceRef="ID___________________" targetRef="ID__________________"/>
+  </collaboration>
+  <process id="Process_ID_____________" isExecutable="true">
+    <laneSet id="LaneSet_ID_____________">
+      <lane id="Lane_ID______________Lane" name="Регистратура Lane">
+        <flowNodeRef>ID____________________</flowNodeRef>
+        <flowNodeRef>ID________________</flowNodeRef>
+        <flowNodeRef>ID_________________________________</flowNodeRef>
+        <flowNodeRef>ID__________________________________</flowNodeRef>
+        <flowNodeRef>ID________________________</flowNodeRef>
+      </lane>
+    </laneSet>
+    <intermediateCatchEvent id="ID____________________" name="Начало_регистратура">
+    </intermediateCatchEvent>
+    <task id="ID________________" name="Проверка_данных"/>
+    <task id="ID_________________________________" name="Ввод данных в электронный журнал"/>
+    <task id="ID__________________________________" name="Перевод данных в журнал отделения"/>
+    <intermediateCatchEvent id="ID________________________" name="Завершение_регистратура">
+    </intermediateCatchEvent>
+    <sequenceFlow id="Flow_rel-___________________-_______________-forward" sourceRef="ID____________________" targetRef="ID________________"/>
+    <sequenceFlow id="Flow_rel-_______________-________________________________-forward" sourceRef="ID________________" targetRef="ID_________________________________"/>
+    <sequenceFlow id="Flow_rel-_________________________________-_______________________-forward" sourceRef="ID__________________________________" targetRef="ID________________________"/>
+    <sequenceFlow id="Flow_rel-________________________________-_________________________________-forward" sourceRef="ID_________________________________" targetRef="ID__________________________________"/>
+  </process>
+  <process id="Process_ID___________________" isExecutable="true">
+    <laneSet id="LaneSet_ID___________________">
+      <lane id="Lane_ID____________________Lane" name="Палатная_медсестра Lane">
+        <flowNodeRef>ID________________</flowNodeRef>
+        <flowNodeRef>ID__________________________</flowNodeRef>
+        <flowNodeRef>ID___________________</flowNodeRef>
+        <flowNodeRef>ID__________________</flowNodeRef>
+        <flowNodeRef>ID________________</flowNodeRef>
+        <flowNodeRef>ID___________________</flowNodeRef>
+        <flowNodeRef>ID_____________________</flowNodeRef>
+        <flowNodeRef>ID___________</flowNodeRef>
+        <flowNodeRef>ID______________________</flowNodeRef>
+      </lane>
+    </laneSet>
+    <intermediateCatchEvent id="ID________________" name="Получение_карты">
+    </intermediateCatchEvent>
+    <task id="ID__________________________" name="Проверка_журнала_кроватей"/>
+    <task id="ID___________________" name="Назначение_кровати"/>
+    <task id="ID__________________" name="Подготовка_палаты"/>
+    <task id="ID________________" name="Ежедневный_уход"/>
+    <task id="ID___________________" name="Запись_температуры"/>
+    <intermediateCatchEvent id="ID_____________________" name="Получение_назначения">
+    </intermediateCatchEvent>
+    <task id="ID___________" name="Забор_проб"/>
+    <intermediateCatchEvent id="ID______________________" name="Передача_проб_курьеру">
+    </intermediateCatchEvent>
+    <sequenceFlow id="Flow_rel-_______________-_________________________-forward" sourceRef="ID________________" targetRef="ID__________________________"/>
+    <sequenceFlow id="Flow_rel-_________________________-__________________-forward" sourceRef="ID__________________________" targetRef="ID___________________"/>
+    <sequenceFlow id="Flow_rel-__________________-_________________-forward" sourceRef="ID___________________" targetRef="ID__________________"/>
+    <sequenceFlow id="Flow_rel-____________________-_______________-forward" sourceRef="ID_____________________" targetRef="ID________________"/>
+    <sequenceFlow id="Flow_rel-_______________-__________________-forward" sourceRef="ID________________" targetRef="ID___________________"/>
+    <sequenceFlow id="Flow_rel-__________-_____________________-forward" sourceRef="ID___________" targetRef="ID______________________"/>
+  </process>
+  <process id="Process_ID_____________" isExecutable="true">
+    <laneSet id="LaneSet_ID_____________">
+      <lane id="Lane_ID______________Lane" name="Лечащий_врач Lane">
+        <flowNodeRef>ID________________</flowNodeRef>
+        <flowNodeRef>ID__________________</flowNodeRef>
+        <flowNodeRef>ID__________________</flowNodeRef>
+        <flowNodeRef>ID___________________</flowNodeRef>
+        <flowNodeRef>ID_______________________</flowNodeRef>
+        <flowNodeRef>ID___________________</flowNodeRef>
+        <flowNodeRef>ID______________________</flowNodeRef>
+        <flowNodeRef>ID__________________</flowNodeRef>
+        <flowNodeRef>ID________________</flowNodeRef>
+        <flowNodeRef>ID___________________</flowNodeRef>
+        <flowNodeRef>ID________________</flowNodeRef>
+      </lane>
+    </laneSet>
+    <task id="ID________________" name="Осмотр_пациента"/>
+    <task id="ID__________________" name="Запись_назначения"/>
+    <task id="ID__________________" name="Проверка_диагноза"/>
+    <exclusiveGateway id="ID___________________" name="Решение_о_анализах"/>
+    <task id="ID_______________________" name="Заполнение_направления"/>
+    <task id="ID___________________" name="Вставка_результата"/>
+    <task id="ID______________________" name="Корректировка_лечения"/>
+    <exclusiveGateway id="ID__________________" name="Решение_о_выписке"/>
+    <intermediateCatchEvent id="ID________________" name="Выписка_решение">
+    </intermediateCatchEvent>
+    <task id="ID___________________" name="Заполнение_выписки"/>
+    <intermediateCatchEvent id="ID________________" name="Завершение_врач">
+    </intermediateCatchEvent>
+    <sequenceFlow id="Flow_rel-_______________-_________________-forward" sourceRef="ID________________" targetRef="ID__________________"/>
+    <sequenceFlow id="Flow_rel-_________________-_________________-forward" sourceRef="ID__________________" targetRef="ID__________________"/>
+    <sequenceFlow id="Flow_rel-_________________-__________________-forward" sourceRef="ID__________________" targetRef="ID___________________"/>
+    <sequenceFlow id="Flow_rel-__________________-______________________-forward-__" sourceRef="ID___________________" targetRef="ID_______________________" name="Да"/>
+    <sequenceFlow id="Flow_rel-__________________-_________________-forward-___" sourceRef="ID___________________" targetRef="ID__________________" name="Нет"/>
+    <sequenceFlow id="Flow_rel-__________________-_____________________-forward" sourceRef="ID___________________" targetRef="ID______________________"/>
+    <sequenceFlow id="Flow_rel-_____________________-_________________-forward" sourceRef="ID______________________" targetRef="ID__________________"/>
+    <sequenceFlow id="Flow_rel-_________________-_______________-forward-__" sourceRef="ID__________________" targetRef="ID________________" name="Да"/>
+    <sequenceFlow id="Flow_rel-_______________-__________________-forward" sourceRef="ID________________" targetRef="ID___________________"/>
+    <sequenceFlow id="Flow_rel-__________________-_______________-forward" sourceRef="ID___________________" targetRef="ID________________"/>
+  </process>
+  <process id="Process_ID___________________" isExecutable="true">
+    <laneSet id="LaneSet_ID___________________">
+      <lane id="Lane_ID____________________Lane" name="Курьер_лаборатории Lane">
+        <flowNodeRef>ID_______________</flowNodeRef>
+        <flowNodeRef>ID_______________________</flowNodeRef>
+      </lane>
+    </laneSet>
+    <intermediateCatchEvent id="ID_______________" name="Получение_проб">
+    </intermediateCatchEvent>
+    <task id="ID_______________________" name="Доставка_в_лабораторию"/>
+    <sequenceFlow id="Flow_rel-______________-______________________-forward" sourceRef="ID_______________" targetRef="ID_______________________"/>
+  </process>
+  <process id="Process_ID____________________" isExecutable="true">
+    <laneSet id="LaneSet_ID____________________">
+      <lane id="Lane_ID_____________________Lane" name="Внешняя_лаборатория Lane">
+        <flowNodeRef>ID______________________</flowNodeRef>
+        <flowNodeRef>ID______________________</flowNodeRef>
+        <flowNodeRef>ID___________________</flowNodeRef>
+        <flowNodeRef>ID__________________</flowNodeRef>
+      </lane>
+    </laneSet>
+    <intermediateCatchEvent id="ID______________________" name="Получение_направления">
+    </intermediateCatchEvent>
+    <task id="ID______________________" name="Регистрация_в_журнале"/>
+    <task id="ID___________________" name="Проведение_анализа"/>
+    <task id="ID__________________" name="Печать_результата"/>
+    <sequenceFlow id="Flow_rel-_____________________-_____________________-forward" sourceRef="ID______________________" targetRef="ID______________________"/>
+    <sequenceFlow id="Flow_rel-_____________________-__________________-forward" sourceRef="ID______________________" targetRef="ID___________________"/>
+    <sequenceFlow id="Flow_rel-__________________-_________________-forward" sourceRef="ID___________________" targetRef="ID__________________"/>
+  </process>  <!-- DI layout so the viewer can render -->
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_ID__________________________________________________________________">
+      <bpmndi:BPMNShape id="Participant_ID______________di" bpmnElement="Participant_ID_____________" isHorizontal="true">
+        <dc:Bounds x="130" y="60" width="2308" height="170"/>
+        <bpmndi:BPMNLabel/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="LaneShape_ID______________Lane" bpmnElement="Lane_ID______________Lane">
+        <dc:Bounds x="160" y="60" width="2278" height="170"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_ID____________________di" bpmnElement="Participant_ID___________________" isHorizontal="true">
+        <dc:Bounds x="130" y="265" width="2308" height="169"/>
+        <bpmndi:BPMNLabel/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="LaneShape_ID____________________Lane" bpmnElement="Lane_ID____________________Lane">
+        <dc:Bounds x="160" y="265" width="2278" height="169"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_ID______________di" bpmnElement="Participant_ID_____________" isHorizontal="true">
+        <dc:Bounds x="130" y="469" width="2308" height="171"/>
+        <bpmndi:BPMNLabel/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="LaneShape_ID______________Lane" bpmnElement="Lane_ID______________Lane">
+        <dc:Bounds x="160" y="469" width="2278" height="171"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_ID____________________di" bpmnElement="Participant_ID___________________" isHorizontal="true">
+        <dc:Bounds x="130" y="675" width="2308" height="171"/>
+        <bpmndi:BPMNLabel/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="LaneShape_ID____________________Lane" bpmnElement="Lane_ID____________________Lane">
+        <dc:Bounds x="160" y="675" width="2278" height="171"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_ID_____________________di" bpmnElement="Participant_ID____________________" isHorizontal="true">
+        <dc:Bounds x="130" y="881" width="2308" height="171"/>
+        <bpmndi:BPMNLabel/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="LaneShape_ID_____________________Lane" bpmnElement="Lane_ID_____________________Lane">
+        <dc:Bounds x="160" y="881" width="2278" height="171"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID____________________" bpmnElement="ID____________________">
+        <dc:Bounds x="239" y="117" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID________________" bpmnElement="ID________________">
+        <dc:Bounds x="404" y="106" width="138" height="72"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID_________________________________" bpmnElement="ID_________________________________">
+        <dc:Bounds x="609" y="105" width="138" height="75"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID__________________________________" bpmnElement="ID__________________________________">
+        <dc:Bounds x="814" y="105" width="138" height="75"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID________________________" bpmnElement="ID________________________">
+        <dc:Bounds x="1090" y="117" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID________________" bpmnElement="ID________________">
+        <dc:Bounds x="278" y="321" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID__________________________" bpmnElement="ID__________________________">
+        <dc:Bounds x="482" y="310" width="138" height="72"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID___________________" bpmnElement="ID___________________">
+        <dc:Bounds x="687" y="310" width="138" height="72"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID__________________" bpmnElement="ID__________________">
+        <dc:Bounds x="892" y="310" width="138" height="72"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID________________" bpmnElement="ID________________">
+        <dc:Bounds x="1676" y="310" width="138" height="72"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID___________________" bpmnElement="ID___________________">
+        <dc:Bounds x="1881" y="310" width="138" height="72"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID_____________________" bpmnElement="ID_____________________">
+        <dc:Bounds x="1117" y="321" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID___________" bpmnElement="ID___________">
+        <dc:Bounds x="1288" y="310" width="138" height="72"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID______________________" bpmnElement="ID______________________">
+        <dc:Bounds x="1562" y="321" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID________________" bpmnElement="ID________________">
+        <dc:Bounds x="191" y="516" width="138" height="72"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID__________________" bpmnElement="ID__________________">
+        <dc:Bounds x="601" y="514" width="138" height="75"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID__________________" bpmnElement="ID__________________">
+        <dc:Bounds x="396" y="516" width="138" height="72"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID___________________" bpmnElement="ID___________________">
+        <dc:Bounds x="850" y="527" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID_______________________" bpmnElement="ID_______________________">
+        <dc:Bounds x="1011" y="514" width="138" height="75"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID___________________" bpmnElement="ID___________________">
+        <dc:Bounds x="1216" y="516" width="138" height="72"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID______________________" bpmnElement="ID______________________">
+        <dc:Bounds x="1421" y="516" width="138" height="72"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID__________________" bpmnElement="ID__________________">
+        <dc:Bounds x="1670" y="527" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID________________" bpmnElement="ID________________">
+        <dc:Bounds x="1875" y="527" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID___________________" bpmnElement="ID___________________">
+        <dc:Bounds x="2036" y="514" width="138" height="72"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID________________" bpmnElement="ID________________">
+        <dc:Bounds x="2285" y="527" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID_______________" bpmnElement="ID_______________">
+        <dc:Bounds x="235" y="733" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID_______________________" bpmnElement="ID_______________________">
+        <dc:Bounds x="396" y="720" width="138" height="75"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID______________________" bpmnElement="ID______________________">
+        <dc:Bounds x="280" y="939" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID______________________" bpmnElement="ID______________________">
+        <dc:Bounds x="486" y="926" width="138" height="75"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID___________________" bpmnElement="ID___________________">
+        <dc:Bounds x="691" y="928" width="138" height="72"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ID__________________" bpmnElement="ID__________________">
+        <dc:Bounds x="896" y="928" width="138" height="72"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-___________________-_______________-forward" bpmnElement="Flow_rel-___________________-_______________-forward">
+        <di:waypoint x="291" y="142"/>
+        <di:waypoint x="404" y="142"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-_______________-________________________________-forward" bpmnElement="Flow_rel-_______________-________________________________-forward">
+        <di:waypoint x="542" y="142"/>
+        <di:waypoint x="609" y="142"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-_________________________________-_______________________-forward" bpmnElement="Flow_rel-_________________________________-_______________________-forward">
+        <di:waypoint x="952" y="143"/>
+        <di:waypoint x="1090" y="143"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-_______________________-_______________-forward_dashed" bpmnElement="Flow_rel-_______________________-_______________-forward_dashed">
+        <di:waypoint x="1115" y="169"/>
+        <di:waypoint x="1115" y="280"/>
+        <di:waypoint x="303" y="280"/>
+        <di:waypoint x="303" y="321"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-_______________-_________________________-forward" bpmnElement="Flow_rel-_______________-_________________________-forward">
+        <di:waypoint x="330" y="346"/>
+        <di:waypoint x="482" y="346"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-_________________________-__________________-forward" bpmnElement="Flow_rel-_________________________-__________________-forward">
+        <di:waypoint x="620" y="346"/>
+        <di:waypoint x="687" y="346"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-__________________-_________________-forward" bpmnElement="Flow_rel-__________________-_________________-forward">
+        <di:waypoint x="825" y="346"/>
+        <di:waypoint x="892" y="346"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-_________________-_______________-forward" bpmnElement="Flow_rel-_________________-_______________-forward">
+        <di:waypoint x="961" y="382"/>
+        <di:waypoint x="961" y="482"/>
+        <di:waypoint x="260" y="482"/>
+        <di:waypoint x="260" y="516"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-_______________-_________________-forward" bpmnElement="Flow_rel-_______________-_________________-forward">
+        <di:waypoint x="329" y="552"/>
+        <di:waypoint x="396" y="552"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-_________________-_________________-forward" bpmnElement="Flow_rel-_________________-_________________-forward">
+        <di:waypoint x="534" y="552"/>
+        <di:waypoint x="601" y="552"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-_________________-____________________-forward" bpmnElement="Flow_rel-_________________-____________________-forward">
+        <di:waypoint x="670" y="514"/>
+        <di:waypoint x="670" y="494"/>
+        <di:waypoint x="1080" y="494"/>
+        <di:waypoint x="1080" y="346"/>
+        <di:waypoint x="1117" y="346"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-____________________-_______________-forward" bpmnElement="Flow_rel-____________________-_______________-forward">
+        <di:waypoint x="1169" y="346"/>
+        <di:waypoint x="1227" y="346"/>
+        <di:waypoint x="1227" y="276"/>
+        <di:waypoint x="1647" y="276"/>
+        <di:waypoint x="1647" y="346"/>
+        <di:waypoint x="1676" y="346"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-_______________-__________________-forward" bpmnElement="Flow_rel-_______________-__________________-forward">
+        <di:waypoint x="1814" y="346"/>
+        <di:waypoint x="1881" y="346"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-_________________-__________________-forward" bpmnElement="Flow_rel-_________________-__________________-forward">
+        <di:waypoint x="739" y="552"/>
+        <di:waypoint x="850" y="552"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-__________________-______________________-forward-__" bpmnElement="Flow_rel-__________________-______________________-forward-__">
+        <di:waypoint x="898" y="552"/>
+        <di:waypoint x="1011" y="552"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-__________________-_________________-forward-___" bpmnElement="Flow_rel-__________________-_________________-forward-___">
+        <di:waypoint x="875" y="575"/>
+        <di:waypoint x="875" y="630"/>
+        <di:waypoint x="1625" y="630"/>
+        <di:waypoint x="1625" y="552"/>
+        <di:waypoint x="1670" y="552"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-______________________-__________-forward" bpmnElement="Flow_rel-______________________-__________-forward">
+        <di:waypoint x="1149" y="552"/>
+        <di:waypoint x="1209" y="552"/>
+        <di:waypoint x="1209" y="412"/>
+        <di:waypoint x="1259" y="412"/>
+        <di:waypoint x="1259" y="346"/>
+        <di:waypoint x="1288" y="346"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-__________-_____________________-forward" bpmnElement="Flow_rel-__________-_____________________-forward">
+        <di:waypoint x="1426" y="346"/>
+        <di:waypoint x="1562" y="346"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-_____________________-______________-forward_dashed" bpmnElement="Flow_rel-_____________________-______________-forward_dashed">
+        <di:waypoint x="1586" y="373"/>
+        <di:waypoint x="1586" y="704"/>
+        <di:waypoint x="260" y="704"/>
+        <di:waypoint x="260" y="733"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-______________-______________________-forward" bpmnElement="Flow_rel-______________-______________________-forward">
+        <di:waypoint x="287" y="758"/>
+        <di:waypoint x="396" y="758"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-______________________-_____________________-forward_dashed" bpmnElement="Flow_rel-______________________-_____________________-forward_dashed">
+        <di:waypoint x="465" y="795"/>
+        <di:waypoint x="465" y="905"/>
+        <di:waypoint x="305" y="905"/>
+        <di:waypoint x="305" y="939"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-_____________________-_____________________-forward" bpmnElement="Flow_rel-_____________________-_____________________-forward">
+        <di:waypoint x="332" y="964"/>
+        <di:waypoint x="486" y="964"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-_____________________-__________________-forward" bpmnElement="Flow_rel-_____________________-__________________-forward">
+        <di:waypoint x="624" y="964"/>
+        <di:waypoint x="691" y="964"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-__________________-_________________-forward" bpmnElement="Flow_rel-__________________-_________________-forward">
+        <di:waypoint x="829" y="964"/>
+        <di:waypoint x="896" y="964"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-_________________-__________________-forward" bpmnElement="Flow_rel-_________________-__________________-forward">
+        <di:waypoint x="1034" y="964"/>
+        <di:waypoint x="1184" y="964"/>
+        <di:waypoint x="1184" y="581"/>
+        <di:waypoint x="1216" y="581"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-__________________-_____________________-forward" bpmnElement="Flow_rel-__________________-_____________________-forward">
+        <di:waypoint x="1354" y="552"/>
+        <di:waypoint x="1421" y="552"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-_____________________-_________________-forward" bpmnElement="Flow_rel-_____________________-_________________-forward">
+        <di:waypoint x="1559" y="552"/>
+        <di:waypoint x="1670" y="552"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-_________________-_______________-forward-__" bpmnElement="Flow_rel-_________________-_______________-forward-__">
+        <di:waypoint x="1718" y="552"/>
+        <di:waypoint x="1875" y="552"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-_________________-_______________-forward-___" bpmnElement="Flow_rel-_________________-_______________-forward-___">
+        <di:waypoint x="1695" y="530"/>
+        <di:waypoint x="1695" y="407"/>
+        <di:waypoint x="1745" y="407"/>
+        <di:waypoint x="1745" y="382"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-_______________-__________________-forward" bpmnElement="Flow_rel-_______________-__________________-forward">
+        <di:waypoint x="1927" y="552"/>
+        <di:waypoint x="2036" y="552"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-__________________-_______________-forward" bpmnElement="Flow_rel-__________________-_______________-forward">
+        <di:waypoint x="2174" y="552"/>
+        <di:waypoint x="2285" y="552"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-________________________________-_________________________________-forward" bpmnElement="Flow_rel-________________________________-_________________________________-forward">
+        <di:waypoint x="747" y="143"/>
+        <di:waypoint x="814" y="143"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_rel-__________________-_________________-forward" bpmnElement="Flow_rel-__________________-_________________-forward">
+        <di:waypoint x="2019" y="346"/>
+        <di:waypoint x="2049" y="346"/>
+        <di:waypoint x="2049" y="496"/>
+        <di:waypoint x="1659" y="496"/>
+        <di:waypoint x="1659" y="552"/>
+        <di:waypoint x="1670" y="552"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
