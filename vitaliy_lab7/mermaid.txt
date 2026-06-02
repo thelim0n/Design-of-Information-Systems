@@ -1,0 +1,161 @@
+```mermaid
+erDiagram
+    MEDICAL_INSTITUTION ||--o{ BUILDING : contains
+    BUILDING ||--o{ DEPARTMENT : houses
+    DEPARTMENT ||--o{ WARD : includes
+    WARD ||--o{ BED : contains
+    MEDICAL_INSTITUTION ||--o{ CABINET : has
+    MEDICAL_INSTITUTION ||--o{ EMPLOYMENT : employs
+    STAFF ||--|| DOCTOR : is
+    DOCTOR }|--|| SPECIALTY : specializes
+    STAFF ||--o{ EMPLOYMENT : assigned_to
+    PATIENT ||--o{ HOSPITALIZATION : admitted
+    PATIENT ||--o{ POLYCLINIC_ASSIGNMENT : observed_by
+    PATIENT ||--o{ MEDICAL_VISIT : attends
+    DOCTOR ||--o{ HOSPITALIZATION : treats_inpatient
+    DOCTOR ||--o{ POLYCLINIC_ASSIGNMENT : supervises_outpatient
+    DOCTOR ||--o{ MEDICAL_VISIT : receives
+    DOCTOR ||--o{ OPERATION : performs
+    PATIENT ||--o{ OPERATION : undergoes
+    LABORATORY ||--o{ LAB_CONTRACT : services
+    LABORATORY ||--o{ LAB_PROFILE_LINK : offers
+    LAB_PROFILE ||--o{ LAB_PROFILE_LINK : defines
+    PATIENT ||--o{ LAB_TEST : passes
+    LABORATORY ||--o{ LAB_TEST : conducts
+
+    MEDICAL_INSTITUTION {
+        int id PK
+        string name
+        string type
+        int parent_institution_id FK
+    }
+    BUILDING {
+        int id PK
+        int institution_id FK
+        string name
+    }
+    DEPARTMENT {
+        int id PK
+        int building_id FK
+        string name
+        string focus_area
+    }
+    WARD {
+        int id PK
+        int department_id FK
+        string number
+        int bed_capacity
+    }
+    BED {
+        int id PK
+        int ward_id FK
+        string number
+        bool is_occupied
+    }
+    CABINET {
+        int id PK
+        int institution_id FK
+        string number
+        string purpose
+    }
+    STAFF {
+        int id PK
+        string full_name
+        string position
+        date hire_date
+    }
+    DOCTOR {
+        int id PK
+        int staff_id FK
+        int specialty_id FK
+        string degree
+        string title
+        int experience_years
+    }
+    SPECIALTY {
+        int id PK
+        string name
+        decimal hazard_coef
+        bool extended_leave
+        bool allows_surgery
+    }
+    EMPLOYMENT {
+        int id PK
+        int staff_id FK
+        int institution_id FK
+        bool is_primary
+        string role_type
+    }
+    PATIENT {
+        int id PK
+        string full_name
+        date birth_date
+        string gender
+        int primary_polyclinic_id FK
+    }
+    HOSPITALIZATION {
+        int id PK
+        int patient_id FK
+        int department_id FK
+        int bed_id FK
+        date admission_date
+        date discharge_date
+        string status
+        decimal current_temp
+        int attending_doctor_id FK
+    }
+    POLYCLINIC_ASSIGNMENT {
+        int id PK
+        int patient_id FK
+        int doctor_id FK
+        int institution_id FK
+        date start_date
+        date end_date
+    }
+    MEDICAL_VISIT {
+        int id PK
+        int patient_id FK
+        int doctor_id FK
+        int cabinet_id FK
+        date visit_date
+        text diagnosis
+    }
+    OPERATION {
+        int id PK
+        int patient_id FK
+        int doctor_id FK
+        int institution_id FK
+        date operation_date
+        string outcome
+    }
+    LABORATORY {
+        int id PK
+        string name
+        string license_number
+    }
+    LAB_PROFILE {
+        int id PK
+        string name
+    }
+    LAB_PROFILE_LINK {
+        int lab_id FK
+        int profile_id FK
+    }
+    LAB_CONTRACT {
+        int id PK
+        int lab_id FK
+        int institution_id FK
+        date start_date
+        date end_date
+        string status
+    }
+    LAB_TEST {
+        int id PK
+        int patient_id FK
+        int lab_id FK
+        int profile_id FK
+        date test_date
+        text result
+        decimal cost
+    }
+```
